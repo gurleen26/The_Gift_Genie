@@ -330,6 +330,18 @@
         border-color: var(--primary);
         font-weight: bold;
     }
+    .home-button {
+      padding: 10px 20px;
+      background: #4B0082;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      margin-top: 20px;
+      cursor: pointer;
+    }
+    .home-button:hover {
+      background: #6a0dad;
+    }
   </style>
 </head>
 <body>
@@ -426,26 +438,34 @@
       </button>
     </form>
 
-    {% if suggestions %}
-    <div class="suggestions animate__animated animate__fadeInUp">
-      <h3><span class="emoji">💡</span> Our Gift Suggestions</h3>
-      {% for idea in suggestions %}
-      <div class="suggestion-item">
-        <p>{{ idea | safe }}</p>
-      </div>
-      {% endfor %}
-      <div style="text-align: center; margin-top: 20px;">
-        <button 
-          onclick="window.location.href='#'" 
-          style="background: var(--accent); width: auto; padding: 12px 25px; display: inline-block;"
-          aria-label="Try another search"
-        >
-          <span class="emoji">🔄</span> Try Another Search
-        </button>
-      </div>
-    </div>
-    {% endif %}
+   {% if suggestions %}
+<div class="suggestions animate__animated animate__fadeInUp">
+  <h3><span class="emoji">💡</span> Our Gift Suggestions</h3>
+  {% for idea in suggestions %}
+  <div class="suggestion-item" onclick="window.location.href='{{ url_for('index') }}'">
+    <p>{{ idea | safe }}</p>
   </div>
+  {% endfor %}
+  
+  <div style="text-align: center; margin-top: 20px;">
+    <button 
+      onclick="window.location.href='{{ url_for('form') }}'" 
+      style="background: var(--accent); width: auto; padding: 12px 25px; display: inline-block;"
+      aria-label="Try another search"
+    >
+      <span class="emoji">🔄</span> Try Another Search
+    </button>
+    
+    <button 
+      onclick="window.location.href='{{ url_for('index') }}'" 
+      style="background: var(--secondary); width: auto; padding: 12px 25px; display: inline-block; margin-left: 10px;"
+      aria-label="Go back home"
+    >
+      <span class="emoji">🏠</span> Back to Home
+    </button>
+  </div>
+</div>
+{% endif %}
 
   <script>
     // Update displayed age value when slider moves
