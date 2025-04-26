@@ -14,29 +14,48 @@ HEADERS = {
 MODEL = "mistralai/mistral-7b-instruct:free"
 # MODEL = "gryphe/mythomax-l2-13b:free"
 
-def get_gift_suggestions(description, age, budget):
-    prompt = f"Suggest unique gift ideas for a {age}-year-old. Budget: ${budget}. Description: {description}"
+# def get_gift_suggestions(description, age, budget):
+#     prompt = f"Suggest unique gift ideas for a {age}-year-old. Budget: ${budget}. Description: {description}"
 
+#     payload = {
+#         # "model": "openchat/openchat-7b:free",  # or another supported free model
+#         "model": MODEL,
+#         "messages": [{"role": "user", "content": prompt}]
+#     }
+
+#     response = requests.post(API_URL, headers=HEADERS, json=payload,verify=False)
+
+#     # Check for errors
+#     try:
+#         data = response.json()
+#         if "choices" in data:
+#             return data["choices"][0]["message"]["content"]
+#         elif "error" in data:
+#             return f"❌ API Error: {data['error'].get('message', 'Unknown error')}"
+#         else:
+#             return "⚠️ Unexpected response from the AI API."
+#     except Exception as e:
+#         return f"❌ Failed to parse API response: {e}"
+
+def get_gift_suggestions(description, age, budget):
+    headers = {
+        "Authorization": f"Bearer {os.environ['OPENROUTER_API_KEY']}",  # Directly use env var
+        "Content-Type": "application/json",
+        "HTTP-Referer": "https://your-app-name.onrender.com",  # OpenRouter requires this
+        "X-Title": "AI Gift Finder"  # Identify your app
+    }
+    
     payload = {
-        # "model": "openchat/openchat-7b:free",  # or another supported free model
         "model": MODEL,
-        "messages": [{"role": "user", "content": prompt}]
+        "messages": [{"role": "user", "content": f"Suggest gifts for {age}-year-old. Budget: ${budget}. Interests: {description}"}]
     }
 
-    response = requests.post(API_URL, headers=HEADERS, json=payload,verify=False)
-
-    # Check for errors
     try:
-        data = response.json()
-        if "choices" in data:
-            return data["choices"][0]["message"]["content"]
-        elif "error" in data:
-            return f"❌ API Error: {data['error'].get('message', 'Unknown error')}"
-        else:
-            return "⚠️ Unexpected response from the AI API."
+        response = requests.post(API_URL, headers=headers, json=payload, timeout=10)
+        response.raise_for_status()  # Raise HTTP errors
+        return response.json()["choices"][0]["message"]["content"]
     except Exception as e:
-        return f"❌ Failed to parse API response: {e}"
-
+        return f"❌ API Error: {str(e)}"
 
 def mock_product_links(suggestions_text):
     # Fake product links from keywords in the suggestion
