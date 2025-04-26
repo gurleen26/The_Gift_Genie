@@ -438,12 +438,12 @@
       </button>
     </form>
 
-   {% if suggestions %}
+    {% if suggestions %}
 <div class="suggestions animate__animated animate__fadeInUp">
   <h3><span class="emoji">💡</span> Our Gift Suggestions</h3>
   {% for idea in suggestions %}
-  <div class="suggestion-item" onclick="window.location.href='{{ url_for('index') }}'">
-    <p>{{ idea | safe }}</p>
+  <div class="suggestion-item">
+    <p>{{ idea | safe }}</p>  <!-- Amazon links will work normally here -->
   </div>
   {% endfor %}
   
@@ -461,7 +461,7 @@
       style="background: var(--secondary); width: auto; padding: 12px 25px; display: inline-block; margin-left: 10px;"
       aria-label="Go back home"
     >
-      <span class="emoji">🏠</span> Back to Home
+      <span class="emoji">🏠</span> Go Back Home
     </button>
   </div>
 </div>
@@ -494,82 +494,3 @@
   </script>
 </body>
 </html>
-
-
-<!-- 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>🎁 AI-Powered Gift Finder</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-  <style>
-    /* [Previous CSS styles remain exactly the same] */
-  </style>
-</head>
-<body>
-  <div class="container animate__animated animate__fadeIn">
-     Flash messages 
-    {% with messages = get_flashed_messages() %}
-      {% if messages %}
-        <div class="flash-messages">
-          {% for message in messages %}
-            <div class="flash-message">{{ message }}</div>
-          {% endfor %}
-        </div>
-      {% endif %}
-    {% endwith %}
-
-    <div class="floating-gifts">
-      <div class="gift-icon" style="left: 10%; font-size: 30px; animation-delay: 0s;">🎁</div>
-      <div class="gift-icon" style="left: 30%; font-size: 40px; animation-delay: 3s;">🎀</div>
-      <div class="gift-icon" style="left: 70%; font-size: 25px; animation-delay: 6s;">🎈</div>
-      <div class="gift-icon" style="left: 85%; font-size: 35px; animation-delay: 9s;">🛍️</div>
-    </div>
-    
-    <h1><span class="emoji">✨</span> Let's Find a Gift as Special as They Are <span class="emoji">✨</span></h1>
-    <p style="text-align: center; color: var(--secondary); margin-bottom: 28px;">🤖 "Just a few questions—our AI will do the rest!"</p>
-    
-    <form method="post" action="{{ url_for('form') }}">
-      Form fields remain the same 
-      <input type="hidden" name="age" id="real-age" value="25">
-      
-
-    </form>
-
-    {% if suggestions %}
-    <div class="suggestions animate__animated animate__fadeInUp">
-      <h3><span class="emoji">💡</span> Our Gift Suggestions</h3>
-      {% for idea in suggestions %}
-      <div class="suggestion-item">
-        <p>{{ idea | safe }}</p>
-      </div>
-      {% endfor %}
-      <div style="text-align: center; margin-top: 20px;">
-          <button type="button" class="retry-btn" data-url="{{ url_for('form') }}">
-          style="background: var(--accent); width: auto; padding: 12px 25px; display: inline-block;">
-          <span class="emoji">🔄</span> Try Another Search
-        </button>
-      </div>
-    </div>
-    {% endif %}
-  </div>
-
-  <script>
-    document.getElementById("age-slider").addEventListener("input", function() {
-      document.getElementById("age-value").textContent = this.value;
-      document.getElementById("real-age").value = this.value;
-    });
-
-    document.querySelectorAll('.category-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelector('.category-btn.active').classList.remove('active');
-        btn.classList.add('active');
-        document.querySelector('input[name="category"]').value = btn.dataset.category;
-      });
-    });
-  </script>
-</body>
-</html> -->
