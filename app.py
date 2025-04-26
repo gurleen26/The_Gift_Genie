@@ -72,5 +72,17 @@ def form():
         suggestions = mock_product_links(suggestions_text)
     return render_template("form.html", suggestions=suggestions)
 
+# ... (your existing routes like @app.route("/") and @app.route("/form")) ...
+
+# ▼ Add this new debug route ▼
+@app.route("/debug")
+def debug():
+    api_key = os.environ.get("OPENROUTER_API_KEY")
+    return {
+        "OPENROUTER_API_KEY_exists": bool(api_key),
+        "key_length": len(api_key) if api_key else 0,
+        "first_5_chars": api_key[:5] + "..." if api_key else None
+    }
+
 if __name__ == "__main__":
     app.run(debug=True)
