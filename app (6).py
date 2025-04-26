@@ -1,12 +1,14 @@
+import os
 from flask import Flask, render_template, request
 import requests
 
 app = Flask(__name__)
 
-API_KEY = "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"  # Get it from https://openrouter.ai
+# Load environment variables
+API_KEY = os.environ.get('OPENROUTER_API_KEY')  # ← Pulls from Render's config
 API_URL = "https://openrouter.ai/api/v1/chat/completions"
 HEADERS = {
-    "Authorization": f"Bearer {API_KEY}",
+    "Authorization": f"Bearer {API_KEY}",  # ← Now uses the env variable
     "Content-Type": "application/json"
 }
 MODEL = "mistralai/mistral-7b-instruct:free"
