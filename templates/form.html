@@ -463,6 +463,12 @@
   const style = document.createElement('style');
   style.innerHTML = '.suggestion-item { cursor: pointer; }';
   document.head.appendChild(style);
+
+      if (performance.navigation.type === 1) {
+    setTimeout(() => {
+      window.location.href = "{{ url_for('index') }}";
+    }, 2000); // 2-second delay
+  }
       
     });
   </script>
