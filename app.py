@@ -84,5 +84,10 @@ def debug():
         "first_5_chars": api_key[:5] + "..." if api_key else None
     }
 
+@app.route("/debug-full")
+def debug_full():
+    full_key = os.environ["OPENROUTER_API_KEY"]
+    return f"Key (first/last 5 chars): {full_key[:5]}...{full_key[-5:]} | Length: {len(full_key)}"
+
 if __name__ == "__main__":
     app.run(debug=True)
