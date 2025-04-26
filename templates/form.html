@@ -453,6 +453,16 @@
       var ageValue = this.value;
       document.getElementById("age-value").textContent = ageValue;
     document.getElementById("age-hidden-input").value = ageValue;
+      document.querySelectorAll('.suggestion-item').forEach(item => {
+    item.addEventListener('click', () => {
+      window.location.href = "{{ url_for('index') }}"; 
+    });
+  });
+
+  // Optional: Add pointer cursor to show items are clickable
+  const style = document.createElement('style');
+  style.innerHTML = '.suggestion-item { cursor: pointer; }';
+  document.head.appendChild(style);
       
     });
   </script>
