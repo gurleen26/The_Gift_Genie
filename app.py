@@ -5,7 +5,7 @@ import requests
 app = Flask(__name__)
 
 # Load environment variables
-API_KEY = os.environ.get('OPENROUTER_API_KEY',timeout=5.0)  # ← Pulls from Render's config
+API_KEY = os.environ.get('OPENROUTER_API_KEY')  # ← Pulls from Render's config
 API_URL = "https://openrouter.ai/api/v1/chat/completions"
 HEADERS = {
     "Authorization": f"Bearer {API_KEY}",  # ← Now uses the env variable
